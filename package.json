@@ -20,10 +20,8 @@
   "files": [
     "cjs",
     "es",
-    "postcss.config.js",
-    "index.d.ts"
+    "postcss.config.js"
   ],
-  "types": "index.d.ts",
   "dependencies": {
     "@babel/cli": "^7.8.3",
     "@babel/runtime": "^7.8.3",
