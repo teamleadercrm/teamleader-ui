@@ -1,12 +1,23 @@
-import React, { forwardRef, PureComponent } from 'react';
-import PropTypes from 'prop-types';
+import React, { PureComponent, ReactNode, CSSProperties, Ref } from 'react';
 import cx from 'classnames';
-import { COLOR, COLORS, TINTS } from '../../constants';
+import { COLOR } from '../../constants';
 import theme from './theme.css';
-
-const overflows = ['auto', 'hidden', 'scroll', 'visible'];
-const margins = [-8, -7, -6, -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8];
-const paddings = [0, 1, 2, 3, 4, 5, 6, 7, 8];
+import {
+  contentAligns,
+  itemAligns,
+  selfAligns,
+  colors,
+  tints,
+  boxSizings,
+  displays,
+  flexDirections,
+  flexWraps,
+  justifyContents,
+  margins,
+  overflows,
+  paddings,
+  textAligns,
+} from '../../constants/types';
 
 const borderRadiuses = {
   square: null,
@@ -14,7 +25,68 @@ const borderRadiuses = {
   rounded: '4px',
 };
 
-class Box extends PureComponent {
+interface BoxProps {
+  alignContent?: contentAligns;
+  alignItems?: itemAligns;
+  alignSelf?: selfAligns;
+  backgroundColor?: colors;
+  backgroundTint?: tints;
+  borderBottomWidth?: number;
+  borderColor?: colors;
+  borderLeftWidth?: number;
+  borderRightWidth?: number;
+  borderTint?: tints;
+  borderTopWidth?: number;
+  borderWidth?: number;
+  borderRadius?: any;
+  borderTopLeftRadius?: any;
+  borderTopRightRadius?: any;
+  borderBottomLeftRadius?: any;
+  borderBottomRightRadius?: any;
+  boxSizing?: boxSizings;
+  children?: ReactNode;
+  className?: string;
+  display?: displays;
+  element?: string;
+  flex?: string | number;
+  flexBasis?: string | number;
+  flexDirection?: flexDirections;
+  flexGrow?: number;
+  flexShrink?: number;
+  flexWrap?: flexWraps;
+  justifyContent?: justifyContents;
+  margin?: margins;
+  marginHorizontal?: margins;
+  marginVertical?: margins;
+  marginBottom?: margins;
+  marginLeft?: margins;
+  marginRight?: margins;
+  marginTop?: margins;
+  order?: number;
+  overflow?: overflows;
+  overflowX?: overflows;
+  overflowY?: overflows;
+  padding?: paddings;
+  paddingHorizontal?: paddings;
+  paddingVertical?: paddings;
+  paddingBottom?: paddings;
+  paddingLeft?: paddings;
+  paddingRight?: paddings;
+  paddingTop?: paddings;
+  style?: CSSProperties;
+  textAlign?: textAligns;
+}
+
+class Box extends PureComponent<BoxProps & { forwardedRef: Ref<any> }> {
+  static defaultProps: Partial<BoxProps> = {
+    borderColor: 'neutral',
+    borderTint: 'dark',
+    borderRadius: 'square',
+    element: 'div',
+    margin: 0,
+    padding: 0,
+  };
+
   getBorder = (value) => {
     const { borderColor, borderTint } = this.props;
     return `${value}px solid ${COLOR[borderColor.toUpperCase()][borderTint.toUpperCase()]}`;
@@ -128,7 +200,7 @@ class Box extends PureComponent {
       ...style,
     };
 
-    const Element = element;
+    const Element = element as React.ElementType;
 
     return (
       <Element className={classNames} ref={forwardedRef} style={elementStyles} {...others}>
@@ -138,72 +210,5 @@ class Box extends PureComponent {
   }
 }
 
-Box.propTypes = {
-  alignContent: PropTypes.oneOf(['center', 'flex-start', 'flex-end', 'space-around', 'space-between', 'space-evenly']),
-  alignItems: PropTypes.oneOf(['center', 'flex-start', 'flex-end', 'baseline', 'stretch']),
-  alignSelf: PropTypes.oneOf(['center', 'flex-start', 'flex-end', 'stretch']),
-  backgroundColor: PropTypes.oneOf(COLORS),
-  backgroundTint: PropTypes.oneOf(TINTS),
-  borderBottomWidth: PropTypes.number,
-  borderColor: PropTypes.oneOf(COLORS),
-  borderLeftWidth: PropTypes.number,
-  borderRightWidth: PropTypes.number,
-  borderTint: PropTypes.oneOf(TINTS),
-  borderTopWidth: PropTypes.number,
-  borderWidth: PropTypes.number,
-  borderRadius: PropTypes.oneOf(Object.keys(borderRadiuses)),
-  borderTopLeftRadius: PropTypes.oneOf(Object.keys(borderRadiuses)),
-  borderTopRightRadius: PropTypes.oneOf(Object.keys(borderRadiuses)),
-  borderBottomLeftRadius: PropTypes.oneOf(Object.keys(borderRadiuses)),
-  borderBottomRightRadius: PropTypes.oneOf(Object.keys(borderRadiuses)),
-  boxSizing: PropTypes.oneOf(['border-box', 'content-box']),
-  children: PropTypes.any,
-  className: PropTypes.string,
-  display: PropTypes.oneOf(['inline', 'inline-block', 'block', 'flex', 'inline-flex']),
-  element: PropTypes.node,
-  flex: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  flexBasis: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  flexDirection: PropTypes.oneOf(['row', 'row-reverse', 'column', 'column-reverse']),
-  flexGrow: PropTypes.number,
-  flexShrink: PropTypes.number,
-  flexWrap: PropTypes.oneOf(['nowrap', 'wrap', 'wrap-reverse']),
-  justifyContent: PropTypes.oneOf([
-    'center',
-    'flex-start',
-    'flex-end',
-    'space-around',
-    'space-between',
-    'space-evenly',
-  ]),
-  margin: PropTypes.oneOf(margins),
-  marginHorizontal: PropTypes.oneOf(margins),
-  marginVertical: PropTypes.oneOf(margins),
-  marginBottom: PropTypes.oneOf(margins),
-  marginLeft: PropTypes.oneOf(margins),
-  marginRight: PropTypes.oneOf(margins),
-  marginTop: PropTypes.oneOf(margins),
-  order: PropTypes.number,
-  overflow: PropTypes.oneOf(overflows),
-  overflowX: PropTypes.oneOf(overflows),
-  overflowY: PropTypes.oneOf(overflows),
-  padding: PropTypes.oneOf(paddings),
-  paddingHorizontal: PropTypes.oneOf(paddings),
-  paddingVertical: PropTypes.oneOf(paddings),
-  paddingBottom: PropTypes.oneOf(paddings),
-  paddingLeft: PropTypes.oneOf(paddings),
-  paddingRight: PropTypes.oneOf(paddings),
-  paddingTop: PropTypes.oneOf(paddings),
-  style: PropTypes.object,
-  textAlign: PropTypes.oneOf(['center', 'left', 'right']),
-};
-
-Box.defaultProps = {
-  borderColor: 'neutral',
-  borderTint: 'dark',
-  borderRadius: 'square',
-  element: 'div',
-  margin: 0,
-  padding: 0,
-};
-
-export default forwardRef((props, ref) => <Box {...props} forwardedRef={ref} />);
+const ForwardedRef = React.forwardRef<any, BoxProps>((props, ref) => <Box {...props} forwardedRef={ref} />);
+export default ForwardedRef;

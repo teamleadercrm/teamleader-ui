@@ -1,12 +1,26 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent, CSSProperties } from 'react';
 import Box from '../box';
-import PropTypes from 'prop-types';
 import cx from 'classnames';
-import { COLORS, TINTS } from '../../constants';
 import theme from './theme.css';
+import { tints, colors } from '../../constants/types';
 
-const factory = (baseType, type, defaultElement) => {
-  class Text extends PureComponent {
+export interface TextProps {
+  children: React.ReactNode;
+  className?: string;
+  color?: colors;
+  element?: React.ReactNode;
+  maxLines?: number;
+  style?: CSSProperties;
+  tint?: tints;
+}
+
+const factory = (baseType, type, defaultElement): React.ComponentType<TextProps> => {
+  class Text extends PureComponent<TextProps> {
+    static defaultProps: Partial<TextProps> = {
+      element: null,
+      tint: 'darkest',
+    };
+
     render() {
       const { children, className, color, element, maxLines, style, tint, ...others } = this.props;
 
@@ -36,21 +50,6 @@ const factory = (baseType, type, defaultElement) => {
       );
     }
   }
-
-  Text.propTypes = {
-    children: PropTypes.any,
-    className: PropTypes.string,
-    color: PropTypes.oneOf(COLORS),
-    element: PropTypes.node,
-    maxLines: PropTypes.number,
-    style: PropTypes.object,
-    tint: PropTypes.oneOf(TINTS),
-  };
-
-  Text.defaultProps = {
-    element: null,
-    tint: 'darkest',
-  };
 
   return Text;
 };
