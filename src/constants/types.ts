@@ -1,0 +1,14 @@
+export type overflows = 'auto' | 'hidden' | 'scroll' | 'visible';
+export type margins = -8 | -7 | -6 | -5 | -4 | -3 | -2 | -1 | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
+export type paddings = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
+export type colors = 'aqua' | 'gold' | 'neutral' | 'mint' | 'ruby' | 'teal' | 'violet';
+export type tints = 'lightest' | 'light' | 'normal' | 'dark' | 'darkest';
+export type contentAligns = 'center' | 'flex-start' | 'flex-end' | 'space-around' | 'space-between' | 'space-evenly';
+export type itemAligns = 'center' | 'flex-start' | 'flex-end' | 'baseline' | 'stretch';
+export type selfAligns = 'center' | 'flex-start' | 'flex-end' | 'stretch';
+export type boxSizings = 'border-box' | 'content-box';
+export type displays = 'inline' | 'inline-block' | 'block' | 'flex' | 'inline-flex';
+export type flexDirections = 'row' | 'row-reverse' | 'column' | 'column-reverse';
+export type flexWraps = 'nowrap' | 'wrap' | 'wrap-reverse';
+export type justifyContents = 'center' | 'flex-start' | 'flex-end' | 'space-around' | 'space-between' | 'space-evenly';
+export type textAligns = 'center' | 'left' | 'right';

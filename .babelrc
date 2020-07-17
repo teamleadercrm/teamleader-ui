@@ -8,7 +8,7 @@
   "env": {
     "development": {
       "plugins": [
-        ["babel-plugin-typescript-to-proptypes", { "comments": true }],
+        ["babel-plugin-typescript-to-proptypes", { "comments": true, "maxSize": 0 }],
         "@babel/plugin-transform-react-jsx-source"
       ]
     },
