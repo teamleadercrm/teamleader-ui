@@ -7,14 +7,14 @@
   ],
   "env": {
     "development": {
-      "plugins": ["@babel/plugin-transform-react-jsx-source"]
+      "plugins": [
+        ["babel-plugin-typescript-to-proptypes", { "comments": true }],
+        "@babel/plugin-transform-react-jsx-source"
+      ]
     },
     "cjs": {
       "plugins": ["transform-react-remove-prop-types"],
-      "ignore": [
-        "**/*.stories.js",
-        "./src/static/**/*"
-      ]
+      "ignore": ["**/*.stories.js", "./src/static/**/*"]
     },
     "es": {
       "plugins": ["transform-react-remove-prop-types"],
@@ -26,10 +26,7 @@
           }
         ]
       ],
-      "ignore": [
-        "**/*.stories.js",
-        "./src/static/**/*"
-      ]
+      "ignore": ["**/*.stories.js", "./src/static/**/*"]
     }
   }
 }
