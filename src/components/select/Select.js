@@ -6,7 +6,7 @@ import { IconCloseSmallOutline, IconChevronDownSmallOutline } from '@teamleader/
 import Box, { omitBoxProps, pickBoxProps } from '../box';
 import Icon from '../icon';
 import ValidationText from '../validationText';
-import { Heading4, Monospaced } from '../typography';
+import { Heading4, Monospaced, TextDisplay } from '../typography';
 import { COLOR } from '../../constants';
 import theme from './theme.css';
 import cx from 'classnames';
@@ -282,7 +282,7 @@ class Select extends PureComponent {
       ...base,
       minHeight: minHeightBySizeMap[size] - 2,
       lineHeight: '18px',
-      padding: isMulti && hasValue && size !== 'large' ? 0 : '0 4px',
+      padding: '0px 6px',
     };
   };
 
@@ -301,6 +301,12 @@ class Select extends PureComponent {
     singleValue: this.getSingleValueStyles,
     valueContainer: this.getValueContainerStyles,
   });
+
+  getMultiValue =
+    () =>
+    ({ children, index, components }) => {
+      return <components.Label>{`${index > 0 ? ', ' : ''}${children}`}</components.Label>;
+    };
 
   getClearIndicator =
     () =>
@@ -393,6 +399,7 @@ class Select extends PureComponent {
           components={{
             ClearIndicator: this.getClearIndicator(),
             DropdownIndicator: this.getDropDownIndicator(),
+            MultiValue: this.getMultiValue(),
             IndicatorSeparator: null,
             ...components,
           }}
