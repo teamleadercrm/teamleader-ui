@@ -2,10 +2,11 @@ import React, { forwardRef, PureComponent } from 'react';
 import ReactSelect from 'react-select';
 import ReactCreatableSelect from 'react-select/creatable';
 import PropTypes from 'prop-types';
-import { IconCloseBadgedSmallFilled, IconChevronDownSmallOutline } from '@teamleader/ui-icons';
+import { IconCloseSmallOutline, IconChevronDownSmallOutline } from '@teamleader/ui-icons';
 import Box, { omitBoxProps, pickBoxProps } from '../box';
 import Icon from '../icon';
 import ValidationText from '../validationText';
+import { Heading4, Monospaced } from '../typography';
 import { COLOR } from '../../constants';
 import theme from './theme.css';
 import cx from 'classnames';
@@ -17,7 +18,6 @@ const minHeightBySizeMap = {
   medium: 36,
   large: 48,
 };
-
 class Select extends PureComponent {
   getClearIndicatorStyles = (base) => {
     const { inverse } = this.props;
@@ -304,18 +304,41 @@ class Select extends PureComponent {
 
   getClearIndicator =
     () =>
-    ({ innerProps }) => {
-      const { inverse } = this.props;
+    ({ innerProps, isMulti, getValue }) => {
+      const value = getValue();
 
       return (
-        <Icon
-          color={inverse ? 'teal' : 'neutral'}
-          display="flex"
-          tint={inverse ? 'lightest' : 'darkest'}
-          {...innerProps}
-        >
-          <IconCloseBadgedSmallFilled />
-        </Icon>
+        <Box display="flex" alignItems="center" borderRadius="rounded" className={theme['select-clear']}>
+          {isMulti && (
+            <Heading4
+              paddingLeft={2}
+              paddingRight={1}
+              color="neutral"
+              tint="darkest"
+              borderTopLeftRadius="rounded"
+              borderBottomLeftRadius="rounded"
+              borderTopRightRadius={isMulti ? 'square' : 'rounded'}
+              borderBottomRightRadius={isMulti ? 'square' : 'rounded'}
+            >
+              <Monospaced>{(value ?? []).length}</Monospaced>
+            </Heading4>
+          )}
+          <Box
+            alignItems="center"
+            display="flex"
+            paddingHorizontal={1}
+            borderTopLeftRadius={isMulti ? 'square' : 'rounded'}
+            borderBottomLeftRadius={isMulti ? 'square' : 'rounded'}
+            borderTopRightRadius="rounded"
+            borderBottomRightRadius="rounded"
+            className={theme['select-clear-icon']}
+            {...innerProps}
+          >
+            <Icon color="neutral" tint="darkest" opacity={1}>
+              <IconCloseSmallOutline />
+            </Icon>
+          </Box>
+        </Box>
       );
     };
 

@@ -20,3 +20,16 @@
 .is-tiny .select {
   font-size: calc(1.2 * var(--unit));
 }
+
+.select-clear {
+  height: 18px;
+
+  background-color: rgba(130, 130, 140, 0.12);
+  &:hover {
+    background-color: rgba(130, 130, 140, 0.24);
+  }
+}
+
+.select-clear-icon {
+  cursor: pointer;
+}
